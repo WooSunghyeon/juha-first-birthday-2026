@@ -57,68 +57,120 @@ const music = document.getElementById('background-music');
 const musicToggle = document.getElementById('music-toggle');
 const musicLabel = document.getElementById('music-label');
 const musicStatus = document.getElementById('music-status');
-let musicRequested = false;
+let musicRequested = true;
 let musicRequestId = 0;
+let musicPlayPending = false;
+let waitingForMusicGesture = false;
+const musicGestureEvents = ['touchend', 'click', 'keydown'];
 music.volume = 0.25;
 
 function showMusicState(state) {
   musicToggle.dataset.state = state;
-  musicToggle.setAttribute('aria-pressed', String(state === 'playing'));
-  musicLabel.textContent = state === 'playing' ? '음악 끄기' : state === 'loading' ? '불러오는 중' : '음악 듣기';
-  musicToggle.setAttribute('aria-label', state === 'playing' ? '배경음악 일시정지' : state === 'loading' ? '배경음악 불러오기 취소' : '배경음악 듣기');
+  musicToggle.setAttribute('aria-pressed', String(musicRequested));
+  musicLabel.textContent = musicRequested ? '음악 끄기' : '음악 켜기';
+  musicToggle.setAttribute('aria-label', musicRequested ? '배경음악 끄기' : '배경음악 켜기');
 }
 
-function stopMusicWithError(error) {
+function removeMusicGestureListeners() {
+  musicGestureEvents.forEach(type => document.removeEventListener(type, startMusicOnGesture, true));
+  waitingForMusicGesture = false;
+}
+
+function waitForMusicGesture() {
+  if (waitingForMusicGesture || !musicRequested) return;
+  musicGestureEvents.forEach(type => document.addEventListener(type, startMusicOnGesture, {capture: true, passive: true}));
+  waitingForMusicGesture = true;
+}
+
+function startMusicOnGesture(event) {
+  // A first tap on the off button must never start the music, including its icon.
+  if (!musicRequested || musicToggle.contains(event.target) || !music.paused) return;
+  if (event.type === 'keydown' && ['Tab', 'Escape', 'Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) return;
+  startMusic();
+}
+
+function stopMusic() {
   musicRequested = false;
   musicRequestId += 1;
+  musicPlayPending = false;
+  music.autoplay = false;
+  removeMusicGestureListeners();
   music.pause();
   showMusicState('paused');
-  if (error?.name !== 'AbortError') {
-    musicStatus.textContent = '음악을 재생하지 못했어요. 다시 눌러 주세요.';
+  musicStatus.textContent = '';
+}
+
+function handleMusicFailure(error, requestId) {
+  if (requestId !== musicRequestId || !musicRequested) return;
+  musicPlayPending = false;
+  if (error?.name === 'NotAllowedError' || error?.name === 'AbortError') {
+    showMusicState('waiting-gesture');
+    musicStatus.textContent = '화면을 터치하면 음악이 시작돼요.';
+    waitForMusicGesture();
+    return;
+  }
+  stopMusic();
+  musicStatus.textContent = '음악을 재생하지 못했어요. 다시 눌러 주세요.';
+}
+
+function startMusic() {
+  if (!musicRequested) return;
+  const requestId = ++musicRequestId;
+  musicPlayPending = true;
+  music.autoplay = true;
+  musicStatus.textContent = '';
+  showMusicState('loading');
+  try {
+    if (music.error) music.load();
+    // Gesture retries call play() synchronously to retain mobile user activation.
+    const playback = music.play();
+    playback?.then(() => {
+      if (requestId !== musicRequestId || !musicRequested) return;
+      musicPlayPending = false;
+      if (!music.paused) {
+        showMusicState('playing');
+        removeMusicGestureListeners();
+      }
+    }).catch(error => {
+      handleMusicFailure(error, requestId);
+    });
+  } catch (error) {
+    handleMusicFailure(error, requestId);
   }
 }
 
 musicToggle.addEventListener('click', () => {
-  const requestId = ++musicRequestId;
-  musicRequested = !musicRequested;
-  musicStatus.textContent = '';
-  if (!musicRequested) {
-    music.pause();
-    showMusicState('paused');
-    return;
-  }
-
-  showMusicState('loading');
-  try {
-    if (music.error) music.load();
-    // Keep play() inside this tap handler so mobile browsers retain the user gesture.
-    const playback = music.play();
-    playback?.then(() => {
-      if (requestId !== musicRequestId || !musicRequested) return;
-      if (!music.paused) showMusicState('playing');
-    }).catch(error => {
-      // A later tap may have intentionally cancelled this play request.
-      if (requestId === musicRequestId && musicRequested) stopMusicWithError(error);
-    });
-  } catch (error) {
-    if (requestId === musicRequestId) stopMusicWithError(error);
+  if (musicRequested) {
+    stopMusic();
+  } else {
+    musicRequested = true;
+    waitForMusicGesture();
+    startMusic();
   }
 });
 
 music.addEventListener('playing', () => {
-  if (musicRequested) showMusicState('playing');
-  else music.pause();
+  if (!musicRequested) {
+    music.pause();
+    return;
+  }
+  musicPlayPending = false;
+  musicStatus.textContent = '';
+  showMusicState('playing');
+  removeMusicGestureListeners();
 });
 music.addEventListener('waiting', () => {
   if (musicRequested) showMusicState('loading');
 });
 music.addEventListener('pause', () => {
-  // Ignore an older queued pause event when a new tap has already resumed playback.
+  // Ignore a blocked start or an older pause event during a new play request.
   if (!music.paused) return;
-  musicRequested = false;
-  musicRequestId += 1;
-  showMusicState('paused');
+  if (musicPlayPending || musicToggle.dataset.state === 'waiting-gesture') return;
+  stopMusic();
 });
 music.addEventListener('error', () => {
-  if (musicRequested) stopMusicWithError(music.error);
+  if (musicRequested) handleMusicFailure(music.error, musicRequestId);
 });
+
+waitForMusicGesture();
+startMusic();

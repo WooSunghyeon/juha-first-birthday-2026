@@ -15,18 +15,18 @@
   <meta property="og:image" content="https://woosunghyeon.github.io/juha-first-birthday-2026/assets/invitation.png">
   <link rel="canonical" href="https://woosunghyeon.github.io/juha-first-birthday-2026/">
   <link rel="stylesheet" href="styles.css?v=20261020">
-  <script src="app.js?v=20261020" defer></script>
+  <script src="app.js?v=music-default-on" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#invitation">초대 내용으로 바로 가기</a>
   <div class="music-player">
-    <button type="button" class="music-toggle" id="music-toggle" aria-label="배경음악 듣기" aria-pressed="false" aria-controls="background-music" data-state="paused">
+    <button type="button" class="music-toggle" id="music-toggle" aria-label="배경음악 끄기" aria-pressed="true" aria-controls="background-music" aria-describedby="music-status" data-state="loading">
       <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span id="music-label">음악 듣기</span>
+      <span id="music-label">음악 끄기</span>
     </button>
     <p id="music-status" class="music-status" role="status" aria-live="polite"></p>
   </div>
-  <audio id="background-music" src="assets/audio/carefree.mp3" preload="none" loop></audio>
+  <audio id="background-music" src="assets/audio/carefree.mp3" preload="auto" autoplay loop></audio>
   <main>
     <section class="hero" aria-labelledby="title">
       <div class="hero-inner">
