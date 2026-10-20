@@ -1,0 +1,5 @@
+나눔스퀘어라운드 / NAVER
+Official font page: https://hangeul.naver.com/font
+Official CSS: https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css
+License: https://help.naver.com/service/30016/contents/18088?osType=PC&lang=ko
+Original WOFF2 files are unmodified.

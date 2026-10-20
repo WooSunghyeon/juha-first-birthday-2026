@@ -41,17 +41,109 @@ document.getElementById('share').addEventListener('click', async () => {
   }
 });
 
-const copyAddress = document.getElementById('copy-address');
-copyAddress.addEventListener('click', async () => {
-  const status = document.getElementById('address-status');
-  try {
-    if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
-    await navigator.clipboard.writeText(copyAddress.dataset.address);
-    status.textContent = '주소를 복사했어요.';
-  } catch {
-    status.textContent = '위 주소를 길게 눌러 복사해 주세요.';
-  }
+document.querySelectorAll('.copy-address').forEach(button => {
+  button.addEventListener('click', async () => {
+    const status = document.getElementById(button.dataset.status || 'address-status');
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(button.dataset.address);
+      status.textContent = '주소를 복사했어요.';
+    } catch {
+      status.textContent = '위 주소를 길게 눌러 복사해 주세요.';
+    }
+  });
 });
+
+// Official NAVER Maps scheme; desktop visitors retain the regular web link.
+function naverMapAppURL(details, android) {
+  const action = details.mapAction === 'place' ? 'place' : 'search';
+  const parameters = action === 'place'
+    ? {lat: details.lat, lng: details.lng, name: details.name}
+    : {query: details.query};
+  parameters.appname = 'https://woosunghyeon.github.io/juha-first-birthday-2026/';
+  const destination = `${action}?${new URLSearchParams(parameters)}`;
+  if (!android) return `nmap://${destination}`;
+  const store = 'https://play.google.com/store/apps/details?id=com.nhn.android.nmap';
+  return `intent://${destination}#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(store)};end`;
+}
+
+function configureNaverMapLinks() {
+  const android = /Android/i.test(navigator.userAgent);
+  const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    || (/Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  if (!android && !ios) return;
+  document.querySelectorAll('.naver-app-link').forEach(link => {
+    const webURL = link.href;
+    link.href = naverMapAppURL(link.dataset, android);
+    link.removeAttribute('target');
+    const help = document.createElement('p');
+    help.className = 'map-help';
+    help.hidden = true;
+    help.append('앱이 열리지 않나요? ');
+    const webLink = document.createElement('a');
+    webLink.href = webURL;
+    webLink.target = '_blank';
+    webLink.rel = 'noopener noreferrer';
+    webLink.textContent = '웹 지도';
+    const installLink = document.createElement('a');
+    installLink.href = android
+      ? 'https://play.google.com/store/apps/details?id=com.nhn.android.nmap'
+      : 'https://apps.apple.com/app/id311867728';
+    installLink.textContent = '앱 설치';
+    help.append(webLink, installLink);
+    (link.closest('.venue-map-actions') || link).insertAdjacentElement('afterend', help);
+    let timer;
+    function clearFallback() {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', clearFallback);
+    }
+    function onVisibility() {
+      if (document.hidden) clearFallback();
+    }
+    link.addEventListener('click', () => {
+      clearFallback();
+      help.hidden = true;
+      document.addEventListener('visibilitychange', onVisibility);
+      window.addEventListener('pagehide', clearFallback, {once: true});
+      timer = setTimeout(() => {
+        if (!document.hidden) help.hidden = false;
+        clearFallback();
+      }, 2500);
+      // The anchor's default action opens the app directly from this user tap.
+    });
+  });
+}
+
+function revealSectionsOnScroll() {
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches || !('IntersectionObserver' in window)) return;
+  const targets = document.querySelectorAll(
+    '#invitation > *, .section-heading, .memory, #party > *, ' +
+    '.location-heading, .venue-card, .entrance-guide, .meal-guide, ' +
+    '.parking-guide, .arrival-details, .ending > p, .ending > strong, .footer-actions'
+  );
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.replace('reveal-pending', 'is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, {threshold: 0.08, rootMargin: '0px 0px -24px 0px'});
+  targets.forEach(target => {
+    if (target.getBoundingClientRect().top < window.innerHeight - 24) return;
+    target.classList.add('reveal-pending');
+    observer.observe(target);
+  });
+  motion.addEventListener('change', event => {
+    if (!event.matches) return;
+    observer.disconnect();
+    targets.forEach(target => target.classList.replace('reveal-pending', 'is-revealed'));
+  });
+}
+
+configureNaverMapLinks();
+revealSectionsOnScroll();
 
 const music = document.getElementById('background-music');
 const musicToggle = document.getElementById('music-toggle');
