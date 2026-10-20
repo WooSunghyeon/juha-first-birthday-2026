@@ -61,7 +61,9 @@ function naverMapAppURL(details, android) {
     ? {lat: details.lat, lng: details.lng, name: details.name}
     : {query: details.query};
   parameters.appname = 'https://woosunghyeon.github.io/juha-first-birthday-2026/';
-  const destination = `${action}?${new URLSearchParams(parameters)}`;
+  // URL schemes use percent-encoded spaces; do not rely on app parsers treating "+" as a space.
+  const query = new URLSearchParams(parameters).toString().replace(/\+/g, '%20');
+  const destination = `${action}?${query}`;
   if (!android) return `nmap://${destination}`;
   const store = 'https://play.google.com/store/apps/details?id=com.nhn.android.nmap';
   return `intent://${destination}#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(store)};end`;
