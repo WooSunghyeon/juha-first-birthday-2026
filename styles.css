@@ -206,6 +206,8 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
 .event-meal { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 /* Fifteen memories: dates and captions, without sequence numbers. */
+.section-heading > .gallery-intro { margin-top: 12px; color: var(--muted); font-size: 15px; }
+.memories .section-heading > .gallery-hint { margin-top: 16px; color: var(--rose); font-size: 13px; font-weight: 700; }
 .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1000px; gap: 30px 24px; }
 .memory { align-self: start; padding: 10px 10px 0; }
 .memory img { aspect-ratio: 4 / 5; object-position: var(--photo-position, center); }
