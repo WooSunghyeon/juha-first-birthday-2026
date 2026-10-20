@@ -123,7 +123,7 @@ function revealSectionsOnScroll() {
   const targets = document.querySelectorAll(
     '#invitation > *, .section-heading, .memory, #party > *, ' +
     '.location-heading, .venue-card, .entrance-guide, .meal-guide, ' +
-    '.parking-guide, .arrival-details, .ending > p, .ending > strong, .footer-actions'
+    '.parking-guide, .arrival-details, .venue-transfer, .ending > p, .ending > strong, .footer-actions'
   );
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {

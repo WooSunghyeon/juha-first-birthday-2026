@@ -238,7 +238,7 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
 .parking-guide { margin-top: 38px; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .parking-guide > p:not(.venue-caption), .resident-parking > p { font-size: 14px; line-height: 1.7; word-break: keep-all; }
 .parking-map-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 9px; color: var(--rose); font-size: 13px; text-underline-offset: 4px; }
-.resident-parking { margin-top: 23px; padding-top: 23px; border-top: 1px dashed #dec9bc; }
+.resident-parking { margin-top: 20px; }
 .resident-parking h4 { margin: 0 0 9px; font-size: 15px; font-weight: 700; }
 .resident-parking .parking-spaces { font-weight: 800; color: var(--rose); margin-bottom: 8px; }
 .parking-spaces span { margin: 0 5px; font-weight: 400; }
@@ -249,6 +249,27 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
 .parking-photos figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; text-align: center; }
 .map-help { margin-top: 8px; font-size: 12px; color: var(--muted); }
 .map-help a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 7px; color: var(--rose); text-underline-offset: 3px; }
+
+/* Follow the day: arrival and parking, then the move to lunch. */
+.visit-flow { margin-top: 26px; padding: 25px 28px; border: 1px solid #dfb2bc; border-radius: 16px; background: #fbe9ed; text-align: left; }
+.visit-flow-title { color: var(--rose); font-size: 18px; font-weight: 800; line-height: 1.5; text-align: center; word-break: keep-all; }
+.visit-flow ol { list-style: none; margin: 22px 0 0; padding: 0; }
+.visit-flow li { display: flex; align-items: center; gap: 16px; }
+.visit-step { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border-radius: 50%; background: var(--rose); color: white; font-size: 19px; font-weight: 800; }
+.visit-flow li > div > span { display: block; font-size: 13px; font-weight: 700; }
+.visit-flow strong { display: block; margin-top: 3px; font-size: 26px; font-weight: 800; line-height: 1.4; }
+.visit-flow .visit-transfer { gap: 16px; margin: 13px 0; color: var(--rose); font-size: 13px; font-weight: 700; }
+.visit-transfer > span { width: 38px; flex: 0 0 38px; text-align: center; font-size: 24px; }
+.venue-stage { color: var(--rose); font-size: 13px; font-weight: 800; }
+.venue-transfer { margin-top: 38px; padding: 28px 12px; border-top: 1px solid var(--line); text-align: center; }
+.venue-transfer > span { display: block; color: var(--rose); font-size: 32px; line-height: 1.2; margin-bottom: 15px; }
+.venue-transfer > p { font-size: 14px; line-height: 1.7; word-break: keep-all; }
+.venue-transfer > strong { display: block; margin: 9px 0 12px; color: var(--rose); font-size: 24px; font-weight: 800; }
+.venue-transfer .transfer-duration { display: inline-block; padding: 6px 18px; border-radius: 24px; background: #fbe9ed; color: var(--rose); font-size: 15px; font-weight: 800; }
+.venue-transfer + .meal-guide { margin-top: 0; }
+.meal-parking { margin-top: 24px; padding-top: 23px; border-top: 1px solid #ccd6bf; }
+.meal-parking h4 { margin: 0 0 10px; font-size: 18px; font-weight: 800; color: #526747; }
+.meal-parking p { font-size: 14px; line-height: 1.8; word-break: keep-all; }
 
 /* Progressive enhancement: content stays visible without JavaScript. */
 .reveal-pending, .is-revealed {
@@ -276,6 +297,11 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
   .event-meal { font-size: 12px; }
   .meal-guide { padding: 24px 20px; margin-top: 30px; }
   .meal-message { font-size: 14px; }
+  .visit-flow { padding: 23px 20px; }
+  .visit-flow-title { font-size: 17px; }
+  .visit-flow strong { font-size: 25px; }
+  .venue-stage { font-size: 12px; }
+  .venue-transfer > strong { font-size: 23px; }
   .parking-guide { margin-top: 30px; }
   .parking-photos { grid-template-columns: 1fr; gap: 18px; }
 }

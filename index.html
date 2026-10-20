@@ -15,8 +15,8 @@
   <meta property="og:image" content="https://woosunghyeon.github.io/juha-first-birthday-2026/assets/invitation-20261020.png">
   <link rel="canonical" href="https://woosunghyeon.github.io/juha-first-birthday-2026/">
   <link rel="preload" href="assets/fonts/NanumSquareRoundR.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261020-invitation-2">
-  <script src="app.js?v=20261020-invitation-3" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261020-invitation-4">
+  <script src="app.js?v=20261020-invitation-4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#invitation">초대 내용으로 바로 가기</a>
@@ -177,12 +177,19 @@
         <div class="location-heading">
           <p class="section-label">COME ON OVER</p>
           <h2 id="location-title">오시는 길</h2>
-          <p>가회저택에서 돌잔치를 함께하고,<br>편안한집으로 이동해 식사합니다.</p>
+          <div class="visit-flow" aria-label="방문 순서">
+            <p class="visit-flow-title">돌잔치와 식사 장소가 달라요</p>
+            <ol>
+              <li><span class="visit-step">1</span><div><span>오전 11시 · 돌잔치</span><strong>가회저택</strong></div></li>
+              <li class="visit-transfer"><span aria-hidden="true">↓</span> 돌잔치 후 차로 약 2분 이동</li>
+              <li><span class="visit-step">2</span><div><span>돌잔치 후 · 식사</span><strong>편안한집</strong></div></li>
+            </ol>
+          </div>
         </div>
         <div class="venue-card">
           <div class="venue-name-row">
             <div>
-              <p class="venue-caption">돌잔치 장소</p>
+              <p class="venue-caption venue-stage">1 · 먼저, 돌잔치</p>
               <h3>가회저택</h3>
             </div>
             <svg class="venue-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 21c7-1 12-5 17-12 5 7 10 11 17 12M11 21h26M15 21v17m18-17v17M11 39h26M20 38V27h8v11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -210,24 +217,9 @@
           <figcaption>사진의 흰색 화살표를 따라<br>두 건물 사이 골목으로 들어오세요.</figcaption>
         </figure>
 
-        <section class="meal-guide" aria-labelledby="meal-title">
-          <p class="venue-caption">돌잔치 후 함께하는 식사</p>
-          <h3 id="meal-title">편안한집</h3>
-          <p class="travel-time">가회저택에서 <strong>차로 약 2분</strong></p>
-          <p class="meal-message">돌잔치가 끝나면 편안한집으로 자리를 옮겨<br class="desktop-break"> 함께 식사할 예정입니다.</p>
-          <div class="venue-address-row">
-            <address>서울 종로구 북촌로 133</address>
-            <button type="button" class="copy-address" data-address="서울 종로구 북촌로 133 편안한집" data-status="meal-address-status">주소 복사</button>
-          </div>
-          <p id="meal-address-status" class="address-status" role="status" aria-live="polite"></p>
-          <a class="button secondary naver-app-link" href="https://map.naver.com/p/search/편안한집%20북촌로%20133" data-map-action="search" data-query="편안한집 북촌로 133" target="_blank" rel="noopener noreferrer">편안한집 네이버 지도 <span aria-hidden="true">↗</span></a>
-        </section>
-
-        <section class="parking-guide" aria-labelledby="parking-title">
-          <p class="venue-caption">차를 가져오시는 분들께</p>
-          <h3 id="parking-title">주차 안내</h3>
-          <p>주차는 <strong>편안한집 주차장</strong> 또는 식당 맞은편<br class="desktop-break"> <strong>삼청동 제1공영주차장</strong>을 이용해 주세요.</p>
-          <a class="parking-map-link naver-app-link" href="https://map.naver.com/p/search/삼청동%20제1공영주차장" data-map-action="search" data-query="삼청동 제1공영주차장" target="_blank" rel="noopener noreferrer">공영주차장 네이버 지도 <span aria-hidden="true">↗</span></a>
+        <section class="parking-guide event-parking" aria-labelledby="event-parking-title">
+          <p class="venue-caption">가회저택에 오실 때</p>
+          <h3 id="event-parking-title">돌잔치 주차 안내</h3>
           <div class="resident-parking">
             <h4>가회저택 앞 거주자우선주차구역</h4>
             <p class="parking-spaces">9-9-61 <span>·</span> 9-9-58 <span>·</span> 9-9-56</p>
@@ -251,14 +243,37 @@
 
         <dl class="arrival-details">
           <div>
-            <dt><span class="arrival-icon" aria-hidden="true">01</span>대중교통</dt>
+            <dt><span class="arrival-icon" aria-hidden="true">01</span>가회저택 교통</dt>
             <dd><strong>안국역 2번 출구</strong>에서<br class="mobile-only"> 도보 약 17분 <span class="arrival-distance">(약 960m)</span></dd>
           </div>
           <div>
-            <dt><span class="arrival-icon" aria-hidden="true">02</span>장소 문의</dt>
+            <dt><span class="arrival-icon" aria-hidden="true">02</span>가회저택 문의</dt>
             <dd><a class="venue-phone" href="tel:050713921606" aria-label="가회저택에 전화하기 0507-1392-1606">0507-1392-1606 <span aria-hidden="true">↗</span></a></dd>
           </div>
         </dl>
+
+        <div class="venue-transfer" role="note">
+          <span aria-hidden="true">↓</span>
+          <p>돌잔치를 마치고, 식사 장소로 이동해요</p>
+          <strong>가회저택 → 편안한집</strong>
+          <p class="transfer-duration">차로 약 2분</p>
+        </div>
+
+        <section class="meal-guide" aria-labelledby="meal-title">
+          <p class="venue-caption venue-stage">2 · 다음은, 함께하는 식사</p>
+          <h3 id="meal-title">편안한집</h3>
+          <div class="venue-address-row">
+            <address>서울 종로구 북촌로 133</address>
+            <button type="button" class="copy-address" data-address="서울 종로구 북촌로 133 편안한집" data-status="meal-address-status">주소 복사</button>
+          </div>
+          <p id="meal-address-status" class="address-status" role="status" aria-live="polite"></p>
+          <a class="button secondary naver-app-link" href="https://map.naver.com/p/search/편안한집%20북촌로%20133" data-map-action="search" data-query="편안한집 북촌로 133" target="_blank" rel="noopener noreferrer">편안한집 네이버 지도 <span aria-hidden="true">↗</span></a>
+          <div class="meal-parking" aria-labelledby="meal-parking-title">
+            <h4 id="meal-parking-title">식사 장소 주차 안내</h4>
+            <p><strong>편안한집 주차장</strong> 또는 식당 맞은편<br class="desktop-break"> <strong>삼청동 제1공영주차장</strong>을 이용해 주세요.</p>
+            <a class="parking-map-link naver-app-link" href="https://map.naver.com/p/search/삼청동%20제1공영주차장" data-map-action="search" data-query="삼청동 제1공영주차장" target="_blank" rel="noopener noreferrer">공영주차장 네이버 지도 <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
       </div>
     </section>
 
