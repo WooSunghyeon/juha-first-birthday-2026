@@ -121,7 +121,7 @@ function revealSectionsOnScroll() {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (motion.matches || !('IntersectionObserver' in window)) return;
   const targets = document.querySelectorAll(
-    '#invitation > *, .section-heading, .memory, #party > *, ' +
+    '#invitation > *, .section-heading, .memory, .bear-comparison, #party > *, ' +
     '.location-heading, .venue-card, .entrance-guide, .meal-guide, ' +
     '.parking-guide, .arrival-details, .venue-transfer, .ending > p, .ending > strong, .footer-actions'
   );

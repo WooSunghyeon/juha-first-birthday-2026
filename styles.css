@@ -218,10 +218,31 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
 .memory.is-landscape .memory-caption { min-height: auto; }
 .milestone-heading { margin-top: 52px; }
 .milestone-heading h3 { margin: 0; font-size: 23px; font-weight: 800; letter-spacing: -.025em; }
-.milestone-gallery { margin-top: 30px; }
+.milestone-gallery { margin-top: 34px; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 800px; }
 .memory.is-milestone { transform: none; }
 .memory.is-milestone img { aspect-ratio: 4 / 3; object-fit: contain; object-position: center; background: #f4eee6; }
 .memory.is-milestone .memory-caption { min-height: 83px; }
+
+/* The same teddy bear makes Juha's growth easy to see. */
+.bear-comparison { max-width: 800px; margin: 30px auto 0; padding: 32px 28px 26px; border: 1px solid #e3c9bd; border-radius: 24px; background: #fffbf2; box-shadow: 0 7px 20px #74465208; }
+.bear-heading { text-align: center; }
+.bear-eyebrow { color: var(--rose); font-size: 12px; font-weight: 700; }
+.bear-heading h3 { margin: 10px 0 12px; font-size: 32px; line-height: 1.4; letter-spacing: -.03em; font-weight: 800; }
+.bear-heading > p:last-child { color: var(--muted); font-size: 14px; line-height: 1.6; word-break: keep-all; }
+.bear-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 24px; }
+.bear-memory { display: block; min-width: 0; width: 100%; padding: 0; overflow: hidden; border: 1px solid #e8d8c8; border-radius: 12px; background: white; text-align: center; transition: transform .2s ease; }
+.bear-memory:hover { transform: translateY(-3px); }
+.bear-date { display: block; padding: 14px 5px 12px; background: #f7ead9; }
+.bear-after .bear-date { background: #f8e2e8; }
+.bear-date strong { display: block; font-size: 16px; font-weight: 800; }
+.bear-date time { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+.bear-photo { display: block; position: relative; overflow: hidden; aspect-ratio: 3 / 4; background: #eee6db; }
+.bear-photo img { display: block; width: 100%; height: auto; }
+.bear-before .bear-photo img { position: absolute; width: 160%; max-width: none; left: -22%; top: 5%; }
+.bear-caption { display: block; padding: 15px 5px; font-size: 15px; line-height: 1.5; font-weight: 700; word-break: keep-all; }
+.bear-after .bear-caption { color: var(--rose); }
+.bear-punchline { width: fit-content; margin: 24px auto 0; padding: 10px 16px; border-radius: 24px; background: #f4e7d3; font-size: 14px; font-weight: 700; line-height: 1.6; text-align: center; word-break: keep-all; }
+.bear-punchline > span { margin-right: 4px; }
 
 /* The original reference photos are framed in CSS, retaining the marked arrow. */
 .entrance-guide { margin-top: 25px; }
@@ -290,6 +311,15 @@ h2[id], h3[id] { scroll-margin-top: 68px; }
   .milestone-heading { margin-top: 42px; }
   .milestone-heading h3 { font-size: 22px; }
   .milestone-gallery { grid-template-columns: 1fr; max-width: 420px; }
+  .bear-comparison { padding: 24px 12px 20px; border-radius: 18px; }
+  .bear-heading h3 { font-size: 26px; }
+  .bear-heading > p:last-child { font-size: 12px; }
+  .bear-pair { gap: 10px; margin-top: 20px; }
+  .bear-date { padding: 12px 3px 10px; }
+  .bear-date strong { font-size: 13px; }
+  .bear-date time { font-size: 10px; }
+  .bear-caption { font-size: 11px; padding: 12px 3px; }
+  .bear-punchline { font-size: 12px; padding: 9px 12px; margin-top: 18px; }
   .memory { padding: 7px 7px 0; }
   .memory-caption { font-size: 12px; line-height: 1.55; padding: 12px 2px 15px; min-height: 80px; }
   .memory-caption > span { font-size: 11px; line-height: 1.4; margin-bottom: 5px; }
